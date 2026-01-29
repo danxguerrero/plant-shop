@@ -1,12 +1,8 @@
-import './App.css'
-
 function App() {
 
 
   return (
-    <>
-      <div>Todo</div>
-    </>
+    <div className="flex justify-center items-center">Todo</div>
   )
 }
 
