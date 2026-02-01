@@ -5,9 +5,10 @@ import Field from './Field'
 type AuthFormProps = {
     fields: FieldType[]
     submitButtonLabel: string
+    onSubmit: (values: { [key: string]: string }) => void
 }
 
-const AuthForm = ({ fields, submitButtonLabel }: AuthFormProps) => {
+const AuthForm = ({ fields, submitButtonLabel, onSubmit }: AuthFormProps) => {
     const [values, setValues] = useState(() => {
         const initialState: { [key: string]: string } = {};
         for (let field of fields) {
@@ -18,7 +19,7 @@ const AuthForm = ({ fields, submitButtonLabel }: AuthFormProps) => {
 
     const handleSubmit = (e: React.SubmitEvent<HTMLFormElement>) => {
         e.preventDefault();
-        console.log(values);
+        onSubmit(values);
     }
 
     return (
