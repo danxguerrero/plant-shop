@@ -17,9 +17,13 @@ const AuthForm = ({ fields, submitButtonLabel, onSubmit }: AuthFormProps) => {
         return initialState;
     })
 
-    const handleSubmit = (e: React.SubmitEvent<HTMLFormElement>) => {
+    const [loading, setLoading] = useState<boolean>(false);
+
+    const handleSubmit = async (e: React.SubmitEvent<HTMLFormElement>) => {
         e.preventDefault();
-        onSubmit(values);
+        setLoading(true);
+        await onSubmit(values);
+        setLoading(false);
     }
 
     return (
@@ -27,7 +31,14 @@ const AuthForm = ({ fields, submitButtonLabel, onSubmit }: AuthFormProps) => {
             {
                 fields.map((field: FieldType) => <Field key={field.label} field={field} values={values} setValues={setValues} />)
             }
-            <button className="w-full rounded-lg bg-emerald-600 p-2 text-white" type="submit">{submitButtonLabel}</button>
+            <button className="w-full rounded-lg bg-emerald-600 p-2 text-white relative" type="submit">
+                {submitButtonLabel}
+                {loading && 
+                <div className="absolute top-0 right-4 flex items-center h-full">
+                    <i className="fa-solid fa-spinner text-green-300 text-2xl animate-spin"></i>
+                </div>
+                }
+            </button>
         </form>
     )
 }
