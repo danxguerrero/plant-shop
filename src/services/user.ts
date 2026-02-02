@@ -7,3 +7,10 @@ export const createUser = ({ username, password }: { username: string; password:
     }
     );
 
+export const createSession = ({ username, password }: { username: string; password: string }) =>
+    apiFetch('POST', '/users/session', {
+        username: username,
+        password: password,
+    }
+    );
+
