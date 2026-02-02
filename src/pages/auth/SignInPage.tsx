@@ -6,7 +6,7 @@ import { Link } from 'react-router-dom';
 const SignInPage = () => {
     return (
             <FormContainer>
-                <AuthForm fields={[{ label: "username", type: "text" }, { label: "password", type: "password" }]} submitButtonLabel="Sign In" />
+                <AuthForm fields={[{ label: "username", type: "text" }, { label: "password", type: "password" }]} submitButtonLabel="Sign In"  onSubmit={(values) => console.log(values)}/>
                 <Link to="/sign-up" className="text-sm text-green-600 underline">Create an account</Link>
             </FormContainer>
     )
