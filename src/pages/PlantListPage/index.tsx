@@ -1,7 +1,9 @@
+import NavBar from "@/shared-components/NavBar";
+
 const PlantListPage = () => {
     return (
         <div>
-            plant list page
+            <NavBar/>
         </div>
     )
 }

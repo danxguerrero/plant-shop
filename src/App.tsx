@@ -11,7 +11,13 @@ import PlantListPage from './pages/PlantListPage';
 function App() {
   const [sessionToken, setSessionToken] = useState<string | null>(() => userService.getSessionTokenStorage());
 
-  const username: string | null = sessionToken ? jwtDecode(sessionToken) : null
+  interface JwtPayload {
+    username: string | null
+  }
+
+  const decoded: JwtPayload | null = sessionToken ? jwtDecode(sessionToken) : null
+
+  const username = decoded ? decoded.username : null
 
   return (
     <SessionContext.Provider value={{
