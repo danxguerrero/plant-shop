@@ -1,18 +1,36 @@
-import {BrowserRouter, Routes, Route} from 'react-router-dom';
+import { useState } from 'react';
+import { BrowserRouter, Routes, Route } from 'react-router-dom';
+import { jwtDecode } from 'jwt-decode';
 
 import SignUpPage from './pages/auth/SignUpPage';
 import SignInPage from './pages/auth/SignInPage';
+import * as userService from '@/services/user'
+import SessionContext from './contexts/SessionContext';
 
 function App() {
+  const [sessionToken, setSessionToken] = useState<string | null>(() => userService.getSessionTokenStorage());
 
+  const username: string | null = sessionToken ? jwtDecode(sessionToken) : null
 
   return (
-    <BrowserRouter>
-      <Routes>
-        <Route path='/' element={<SignInPage/>}/>
-        <Route path='/sign-up' element={<SignUpPage/>} />
-      </Routes>
-    </BrowserRouter>
+    <SessionContext.Provider value={{
+      username: username,
+      signIn: (capstoneSessionToken: string) => {
+        setSessionToken(capstoneSessionToken);
+        userService.setSessionTokenStorage(capstoneSessionToken);
+      },
+      signOut: () => {
+        setSessionToken(null);
+        userService.removeSessionTokenStorage();
+      }
+    }}>
+      <BrowserRouter>
+        <Routes>
+          <Route path='/' element={<SignInPage />} />
+          <Route path='/sign-up' element={<SignUpPage />} />
+        </Routes>
+      </BrowserRouter>
+    </SessionContext.Provider>
   )
 }
 

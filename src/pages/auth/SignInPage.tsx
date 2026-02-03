@@ -1,13 +1,15 @@
-import {useState} from 'react'
+import {useState, useContext} from 'react'
 import AuthForm from './AuthForm'
 import FormContainer from './FormContainer';
 import { Link, useLocation } from 'react-router-dom';
 import * as userService from '../../services/user'
+import SessionContext from '@/contexts/SessionContext';
 
 
 const SignInPage = () => {
     const [error, setError] = useState<string>('');
     const location = useLocation();
+    const sessionContext = useContext(SessionContext)
 
     const onSubmit = async (values: {[key:string]: string}) => {
 
@@ -15,15 +17,15 @@ const SignInPage = () => {
         const response = await userService.createSession(
             {username: values.username, password: values.password}
         )
+        const data = await response.json()
         if (response.status == 201) {
-            console.log("Sign in successful")
+            sessionContext?.signIn(data.capstone_session_token)
             setError('')
+            console.log(sessionContext?.username)
         } else {
-            const data = await response.json()
             console.log(data)
             setError(data.error)
         }
-        console.log(response)
     }
 
     return (
