@@ -6,6 +6,7 @@ import SignUpPage from './pages/auth/SignUpPage';
 import SignInPage from './pages/auth/SignInPage';
 import * as userService from '@/services/user'
 import SessionContext from './contexts/SessionContext';
+import PlantListPage from './pages/PlantListPage';
 
 function App() {
   const [sessionToken, setSessionToken] = useState<string | null>(() => userService.getSessionTokenStorage());
@@ -22,12 +23,13 @@ function App() {
       signOut: () => {
         setSessionToken(null);
         userService.removeSessionTokenStorage();
-      }
+      },
     }}>
       <BrowserRouter>
         <Routes>
           <Route path='/' element={<SignInPage />} />
           <Route path='/sign-up' element={<SignUpPage />} />
+          <Route path='/plants' element={<PlantListPage/>} />
         </Routes>
       </BrowserRouter>
     </SessionContext.Provider>

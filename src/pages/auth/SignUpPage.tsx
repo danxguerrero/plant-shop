@@ -41,7 +41,6 @@ const SignUpPage = () => {
             console.log(data)
             setError(data.error)
         }
-        console.log(response)
     }
 
     return (
