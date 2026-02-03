@@ -14,3 +14,16 @@ export const createSession = ({ username, password }: { username: string; passwo
     }
     );
 
+const CAPSTONE_SESSION_STORAGE_KEY = 'capstone_session_token' 
+    
+export const setSessionTokenStorage = (capstoneSessionToken: string): void => {
+    localStorage.setItem(CAPSTONE_SESSION_STORAGE_KEY, capstoneSessionToken);
+}
+
+export const getSessionTokenStorage = ():string | null => {
+    return localStorage.getItem(CAPSTONE_SESSION_STORAGE_KEY);
+} 
+
+export const removeSessionTokenStorage = (): void => {
+    localStorage.removeItem(CAPSTONE_SESSION_STORAGE_KEY);
+}
