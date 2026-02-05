@@ -1,21 +1,22 @@
 import { useEffect, useState } from "react";
 import * as plantService from "@/services/plant";
 import NavBar from "@/shared-components/NavBar";
+import LoadingSpinner from "@/shared-components/LoadingSpinner";
 import RedirectToSignInIfSignedOut from "@/shared-components/RedirectToSignInIfSignedOut";
 import PlantItem from "./PlantItem";
 import type { PlantType } from "./types";
 
 const PlantListPage = () => {
   const [plants, setPlants] = useState<PlantType[]>([]);
-  const [loading, setLoading] = useState<boolean>(false);
+  const [isLoading, setIsLoading] = useState<boolean>(false);
 
   useEffect(() => {
     (async () => {
-      setLoading(true);
+      setIsLoading(true);
       const response = await plantService.getPlants();
       const data = await response.json();
       setPlants(data);
-      setLoading(false);
+      setIsLoading(false);
     })();
   }, []);
 
@@ -27,10 +28,8 @@ const PlantListPage = () => {
     <RedirectToSignInIfSignedOut>
       <NavBar />
       <div className="min-h-screen bg-green-50">
-        {loading ? (
-          <div className="flex justify-center pt-40">
-            <i className="fa-solid fa-spinner animate-spin text-3xl text-emerald-600"></i>
-          </div>
+        {isLoading ? (
+          <LoadingSpinner />
         ) : (
           <div className="flex justify-center py-24">
             <div className="w-full max-w-5xl font-playfair">
