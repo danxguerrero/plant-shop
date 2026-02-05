@@ -3,10 +3,10 @@ import * as plantService from "@/services/plant";
 import NavBar from "@/shared-components/NavBar";
 import RedirectToSignInIfSignedOut from "@/shared-components/RedirectToSignInIfSignedOut";
 import PlantItem from "./PlantItem";
-import type { plantType } from "./types";
+import type { PlantType } from "./types";
 
 const PlantListPage = () => {
-  const [plants, setPlants] = useState<plantType[]>([]);
+  const [plants, setPlants] = useState<PlantType[]>([]);
   const [loading, setLoading] = useState<boolean>(false);
 
   useEffect(() => {
@@ -19,7 +19,7 @@ const PlantListPage = () => {
     })();
   }, []);
 
-  const plantItems = plants.map((plant: plantType) => (
+  const plantItems = plants.map((plant: PlantType) => (
     <PlantItem key={plant.id} plant={plant} />
   ));
 
@@ -33,8 +33,8 @@ const PlantListPage = () => {
           </div>
         ) : (
           <div className="flex justify-center py-24">
-            <div className="w-full max-w-5xl border border-red-500 font-playfair">
-              <div className="mb-6 font-playfair text-4xl text-emerald-800">
+            <div className="w-full max-w-5xl font-playfair">
+              <div className="mb-6 px-4 font-playfair text-4xl text-emerald-800">
                 Plants In Stock
               </div>
               <div className="flex flex-wrap justify-center">{plantItems}</div>
