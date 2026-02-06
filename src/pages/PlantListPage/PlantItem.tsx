@@ -2,22 +2,10 @@ import { useState } from "react";
 import { Link } from "react-router-dom";
 import type { PlantType } from "./types";
 import clsx from "clsx";
-
-const POT_COLORS: { [key: string]: string } = {
-  stone: "bg-stone-200",
-  slate: "bg-slate-300",
-  sky: "bg-sky-300",
-  black: "bg-gray-600",
-  white: "bg-gray-50",
-  amber: "bg-amber-600",
-};
+import { POT_COLORS, getRandomIdx } from "@/shared-components/utils";
 
 type PlantItemProps = {
   plant: PlantType;
-};
-
-const getRandomIdx = (arr: [{ pot_color: string; src: string }]) => {
-  return Math.floor(Math.random() * arr.length);
 };
 
 const PlantItem = ({ plant }: PlantItemProps) => {
