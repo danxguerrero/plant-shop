@@ -4,7 +4,7 @@ const { VITE_API_BASE_URL, VITE_API_KEY } = import.meta.env;
 const apiFetch = (
   method: string,
   path: string,
-  body: { [key: string]: string } | null = null,
+  body: { [key: string]: string | number } | null = null,
 ) => {
   const options: {
     method: string;

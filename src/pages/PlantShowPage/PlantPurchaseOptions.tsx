@@ -2,6 +2,7 @@ import { useState } from "react";
 import type { PlantDataType } from "./types";
 import clsx from "clsx";
 import { POT_COLORS } from "@/shared-components/utils";
+import * as cartService from "@/services/cart";
 
 type PlantPurchaseOptionsProps = {
   plantData: PlantDataType | null;
@@ -15,6 +16,7 @@ const PlantPurchaseOptions = ({
   setImageIdx,
 }: PlantPurchaseOptionsProps) => {
   const [quantity, setQuantity] = useState<number>(1);
+  const [isLoading, setIsLoading] = useState<boolean>(false);
   return (
     <>
       <div className="my-10">
@@ -65,7 +67,25 @@ const PlantPurchaseOptions = ({
             <i className="fa-solid fa-plus"></i>
           </button>
         </div>
-        <button className="rounded-full bg-emerald-700 text-white text-xl flex-1 ml-2"><i className="fa-solid fa-cart-arrow-down mr-2"></i>Add to Cart</button>
+        <button
+          className="ml-2 flex-1 rounded-full bg-emerald-700 text-xl text-white"
+          onClick={async () => {
+            if (!plantData) {
+              throw new Error("plantData is required to add item to cart");
+            }
+            setIsLoading(true);
+            const response = await cartService.addPlantToCart({
+              quantity: quantity,
+              plantId: plantData.id,
+              potColor: plantData.images[imageIdx].pot_color,
+            });
+            setIsLoading(false);
+            console.log(response.status);
+          }}
+        >
+          {isLoading ? <i className="fa-solid fa-spinner animate-spin text-2xl text-white mr-2"></i> : <i className="fa-solid fa-cart-arrow-down mr-2 text-2xl hover:bg-emerald-800"></i>}
+          Add to Cart
+        </button>
       </div>
     </>
   );

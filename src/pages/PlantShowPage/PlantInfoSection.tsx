@@ -36,7 +36,7 @@ const PlantInfoSection = ({ plantData }: PlantInfoSectionProps) => {
         <div className="hidden md:block">
           <PlantHeading plantData={plantData} />
         </div>
-        <p className="mt-4 leading-relaxed text-slate-600">
+        <p className="mt-6 leading-relaxed text-slate-600">
           {plantData?.description}
         </p>
         <PlantPurchaseOptions plantData={plantData} imageIdx={imageIdx} setImageIdx={setImageIdx}/>
