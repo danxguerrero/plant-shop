@@ -1,17 +1,13 @@
 import SessionContext from "@/contexts/SessionContext";
 import { useContext, useEffect, useState, useCallback } from "react";
-import { RemoveScroll } from "react-remove-scroll";
 import * as cartService from "@/services/cart";
 import LoadingSpinner from "@/shared-components/LoadingSpinner";
 import type { CartItemType } from "./types";
 import CartItem from "./CartItem";
 import clsx from "clsx";
 
-type CartModalProps = {
-  setCartOpen: React.Dispatch<React.SetStateAction<boolean>>;
-};
 
-const CartModal = ({ setCartOpen }: CartModalProps) => {
+const CartModal = () => {
   const sessionContext = useContext(SessionContext);
   const [isLoading, setIsLoading] = useState<boolean>(true);
   const [cartItems, setCartItems] = useState<CartItemType[]>([]);
@@ -42,15 +38,7 @@ const CartModal = ({ setCartOpen }: CartModalProps) => {
   }
 
   return (
-    <RemoveScroll>
-      <div className="fixed left-0 top-0 flex h-full w-full justify-end bg-black/30 backdrop-blur-sm">
         <div className="h-screen w-full max-w-xl bg-white flex flex-col">
-          <button
-            className="absolute right-0 top-0 p-2"
-            onClick={() => setCartOpen(false)}
-          >
-            <i className="fa-solid fa-xmark text-4xl text-emerald-400"></i>
-          </button>
           <div className="bg-emerald-800 py-7 text-center font-playfair text-3xl text-white shadow-md">
             {sessionContext?.username}'s Cart
           </div>
@@ -59,7 +47,7 @@ const CartModal = ({ setCartOpen }: CartModalProps) => {
               <LoadingSpinner />
             ) : (
               <>
-                <div className="flex-1 overflow-y-scroll">
+                <div className="flex-1 overflow-y-scroll pb-20">
                   {cartItems.map((item, idx) => (
                     <div
                       key={item.id}
@@ -91,8 +79,7 @@ const CartModal = ({ setCartOpen }: CartModalProps) => {
             )}
 
         </div>
-      </div>
-    </RemoveScroll>
+
   );
 };
 
