@@ -26,7 +26,7 @@ const NavBar = () => {
             Plant Shop
           </div>
         </Link>
-        <div className="flex flex-1 justify-end">
+        <div className="sm:flex flex-1 justify-end hidden">
           <div className="relative min-w-32">
             <button
               className="flex items-center text-emerald-200"
@@ -52,6 +52,7 @@ const NavBar = () => {
               Cart
             </button>
         </div>
+        <button><i className="fa-solid fa-bars text-4xl text-emerald-400 flex sm:hidden"></i></button>
       </div>
     </nav>
     {cartOpen && <CartModal setCartOpen={setCartOpen}/>}

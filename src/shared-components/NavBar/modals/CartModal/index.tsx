@@ -59,7 +59,7 @@ const CartModal = ({ setCartOpen }: CartModalProps) => {
               <LoadingSpinner />
             ) : (
               <>
-                <div className="flex-1 overflow-y-scroll">
+                <div className="flex-1 overflow-y-scroll pb-20">
                   {cartItems.map((item, idx) => (
                     <div
                       key={item.id}
