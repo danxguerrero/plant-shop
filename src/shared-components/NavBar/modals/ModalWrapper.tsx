@@ -19,7 +19,7 @@ const MobileWrapper: React.FC<MobileWrapperProps> = ({
   return (
     <RemoveScroll>
       <div 
-        className="fixed left-0 top-0 flex h-full w-full justify-end bg-black/30 backdrop-blur-sm"
+        className="fixed left-0 top-0 flex h-full w-full justify-end items-start bg-black/30 backdrop-blur-sm"
         onClick={(e) => {
             if (e.target == e.currentTarget) {
                 onCloseClick();

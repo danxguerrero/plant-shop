@@ -3,10 +3,12 @@ import { Link } from "react-router-dom";
 import SessionContext from "@/contexts/SessionContext";
 import CartModal from "./modals/CartModal";
 import ModalWrapper from "./modals/ModalWrapper";
+import MobileModalMenu from "./modals/MobileModalMenu";
 
 const NavBar = () => {
   const [userMenuOpen, setUserMenuOpen] = useState<boolean>(false);
   const [cartOpen, setCartOpen] = useState<boolean>(false);
+  const [mobileMenuOpen, setMobileMenuOpen] = useState<boolean>(false);
   const sessionContext = useContext(SessionContext);
   const username = sessionContext?.username;
 
@@ -55,13 +57,19 @@ const NavBar = () => {
               Cart
             </button>
           </div>
-          <button>
+          <button onClick={() => setMobileMenuOpen(true)}>
             <i className="fa-solid fa-bars flex text-4xl text-emerald-400 sm:hidden"></i>
           </button>
         </div>
       </nav>
       <ModalWrapper isOpen={cartOpen} onCloseClick={() => setCartOpen(false)}>
-        {cartOpen && <CartModal />}
+        <CartModal />
+      </ModalWrapper>
+      <ModalWrapper isOpen={mobileMenuOpen} onCloseClick={() => setMobileMenuOpen(false)}>
+              <MobileModalMenu onCartOpenClick={() => {
+                setCartOpen(true);
+                setMobileMenuOpen(false);
+              }}/>
       </ModalWrapper>
     </>
   );
