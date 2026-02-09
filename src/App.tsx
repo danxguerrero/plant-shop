@@ -8,6 +8,7 @@ import * as userService from '@/services/user'
 import SessionContext from './contexts/SessionContext';
 import PlantListPage from './pages/PlantListPage';
 import PlantShowPage from './pages/PlantShowPage';
+import ScrollToTop from './shared-components/ScrollToTop';
 
 function App() {
   const [sessionToken, setSessionToken] = useState<string | null>(() => userService.getSessionTokenStorage());
@@ -33,6 +34,7 @@ function App() {
       },
     }}>
       <BrowserRouter>
+      <ScrollToTop />
         <Routes>
           <Route path='/' element={<SignInPage />} />
           <Route path='/sign-up' element={<SignUpPage />} />
