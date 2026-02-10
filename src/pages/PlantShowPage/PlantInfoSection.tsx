@@ -1,24 +1,30 @@
-import {useState} from 'react';
+import { useState } from "react";
 import PlantHeading from "./PlantHeading";
 import BenefitBox from "./BenefitBox";
 import type { PlantDataType } from "./types";
 import PlantPurchaseOptions from "./PlantPurchaseOptions";
-import { getRandomIdx } from '@/shared-components/utils';
+import { getRandomIdx } from "@/shared-components/utils";
+import Zoom from "react-medium-image-zoom";
+import 'react-medium-image-zoom/dist/styles.css'
 
 type PlantInfoSectionProps = {
   plantData: PlantDataType | null;
 };
 
 const PlantInfoSection = ({ plantData }: PlantInfoSectionProps) => {
-    const [imageIdx, setImageIdx] = useState<number>(() => plantData ? getRandomIdx(plantData.images): 0)
+  const [imageIdx, setImageIdx] = useState<number>(() =>
+    plantData ? getRandomIdx(plantData.images) : 0,
+  );
   return (
     <div className="flex flex-col md:flex-row">
       <div className="flex flex-1 flex-col">
         <div className="mb-8 block md:hidden">
           <PlantHeading plantData={plantData} />
         </div>
-        <img src={plantData?.images[imageIdx].src} />
-        <div className="flex flex-1 mt-4">
+        <Zoom>
+          <img src={plantData?.images[imageIdx].src} />
+        </Zoom>
+        <div className="mt-4 flex flex-1">
           <BenefitBox
             icon="far fa-check-circle"
             title="Guaranteed Healthy"
@@ -39,7 +45,11 @@ const PlantInfoSection = ({ plantData }: PlantInfoSectionProps) => {
         <p className="mt-6 leading-relaxed text-slate-600">
           {plantData?.description}
         </p>
-        <PlantPurchaseOptions plantData={plantData} imageIdx={imageIdx} setImageIdx={setImageIdx}/>
+        <PlantPurchaseOptions
+          plantData={plantData}
+          imageIdx={imageIdx}
+          setImageIdx={setImageIdx}
+        />
       </div>
     </div>
   );

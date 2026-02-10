@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import { motion } from "framer-motion";
 import * as plantService from "@/services/plant";
 import NavBar from "@/shared-components/NavBar";
 import LoadingSpinner from "@/shared-components/LoadingSpinner";
@@ -20,8 +21,16 @@ const PlantListPage = () => {
     })();
   }, []);
 
-  const plantItems = plants.map((plant: PlantType) => (
-    <PlantItem key={plant.id} plant={plant} />
+  const plantItems = plants.map((plant: PlantType, idx) => (
+    <motion.div 
+      key={plant.id}
+      initial={{ opacity: 0, translateY: "20px"}}
+      whileInView={{ opacity: 1, translateY: 0}}
+      viewport={{ once: true }}
+      transition={{ delay: 0.3 + (idx % 3) * 0.2, duration: 0.4}}
+    >
+      <PlantItem plant={plant} />
+    </motion.div>
   ));
 
   return (
